@@ -3,6 +3,7 @@ import { DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList, c
 import { StackNavigator } from './StackNavigator';
 import { ProfileScreen } from '../screens/profile/ProfileScreen';
 import { globalColors } from '../theme/theme';
+import { BottomTabsNavigator } from './BottomTabsNavigator';
 
 const Drawer = createDrawerNavigator();
 
@@ -15,7 +16,7 @@ export const SideMenuNavigator = () => {
       drawerContent={ (props) => <CustomDrawerContent { ...props } /> }
       screenOptions={{
         headerShown: false,
-        drawerType: dimensions.width >= 758 ? 'permanent' : 'slide',
+        drawerType: dimensions.width >= 768 ? 'permanent' : 'slide',
         drawerActiveBackgroundColor: globalColors.primary,
         drawerActiveTintColor: 'white',
         drawerInactiveTintColor: globalColors.primary,
@@ -25,7 +26,8 @@ export const SideMenuNavigator = () => {
         }
       }}
     >
-      <Drawer.Screen name="StackNavigator" component={ StackNavigator } />
+      {/* <Drawer.Screen name="StackNavigator" component={ StackNavigator } /> */}
+      <Drawer.Screen name="Tabs" component={ BottomTabsNavigator } />
       <Drawer.Screen name="Profile" component={ ProfileScreen } />
     </Drawer.Navigator>
   );
