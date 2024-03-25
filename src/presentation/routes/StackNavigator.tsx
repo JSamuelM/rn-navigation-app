@@ -1,3 +1,7 @@
+import { useEffect } from 'react';
+import { Platform } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from '../screens/home/HomeScreen';
 import { ProductsScreen } from '../screens/products/ProductsScreen';
@@ -14,13 +18,25 @@ export type RootStackParams = {
 const Stack = createStackNavigator<RootStackParams>();
 
 export const StackNavigator = () => {
+
+  const { top } = useSafeAreaInsets();
+  const navigator = useNavigation();
+
+  useEffect(() => {
+    navigator.setOptions({
+      headerShown: false,
+    })
+  }, [])
+  
+
   return (
     <Stack.Navigator screenOptions={{
       headerShown: true,
       headerStyle: {
         elevation: 0,
         shadowColor: 'transparent'
-      }
+      },
+      headerStatusBarHeight: Platform.OS === 'android' ? top : -5,
     }}>
       <Stack.Screen name="Home" component={ HomeScreen } />
       <Stack.Screen name="Product" component={ ProductScreen } />
